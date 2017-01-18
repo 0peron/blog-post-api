@@ -13,26 +13,7 @@ app.use(morgan('common'));
 // these router instances act as modular, mini-express apps.
 app.use('/blogPostRouter', blogPostRouter);
 
-app.listen(process.env.PORT || 8080, () => {
-    console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
-});
 
-function runServer() {
-    const port = process.env.PORT || 8080;
-    return new Promise((resolve, reject) => {
-        app.listen(port, () => {
-                console.log(`Your app is listening on port ${port}`);
-                resolve();
-            })
-            .on('error', err => {
-                reject(err);
-            });
-    });
-}
-
-// both runServer and closeServer need to access the same
-// server object, so we declare `server` here, and then when
-// runServer runs, it assigns a value.
 let server;
 
 function runServer() {
@@ -46,10 +27,10 @@ function runServer() {
         });
     });
 }
-
-// like `runServer`, this function also needs to return a promise.
-// `server.close` does not return a promise on its own, so we manually
-// create one.
+//
+//// like `runServer`, this function also needs to return a promise.
+//// `server.close` does not return a promise on its own, so we manually
+//// create one.
 function closeServer() {
     return new Promise((resolve, reject) => {
         console.log('Closing server');
@@ -63,12 +44,21 @@ function closeServer() {
         });
     });
 }
+//
+//// if server.js is called directly (aka, with `node server.js`), this block
+//// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
+//if (require.main === module) {
+//    runServer().catch(err => console.error(err));
+//};
+//
 
-// if server.js is called directly (aka, with `node server.js`), this block
-// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
-if (require.main === module) {
-    runServer().catch(err => console.error(err));
-};
+
+
+if (!module.parent) {
+    app.listen(process.env.PORT || 8080, () => {
+        console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
+    });
+}
 
 module.exports = {
     app, runServer, closeServer
