@@ -20,6 +20,12 @@ app.use(morgan('common'));
 // router instances we've imported. Remember,
 // these router instances act as modular, mini-express apps.
 app.use('/blogPostRouter', blogPostRouter);
+app.use(bodyParser.json());
+
+app.get('/')
+
+
+
 
 
 let server;

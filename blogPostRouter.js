@@ -20,7 +20,7 @@ BlogPosts.create('tomatoes', 'this is a blog post all about tomatoes', 'Tomatoe 
 BlogPosts.create('peppers', 'this is a blog post about them spicy peppers!', 'hot chillie lover');
 
 
-router.get('/', (req, res) => {
+router.get('/BlogPosts', (req, res) => {
     //    res.json(BlogPosts.get());
     BlogPosts
         .find()
