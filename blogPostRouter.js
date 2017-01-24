@@ -97,7 +97,7 @@ router.delete('/:id', (req, res) => {
     //    res.status(204).end();
     BlogPosts
         .findByIdAndRemove(req.params.id)
-        .exe()
+        .exec()
         .then(BlogPosts => res.status(204).end())
         .catch(err => res.status(500).json({
             message: 'internal server error'

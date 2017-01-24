@@ -22,8 +22,6 @@ app.use(morgan('common'));
 app.use('/blogPostRouter', blogPostRouter);
 app.use(bodyParser.json());
 
-app.get('/')
-
 
 
 
